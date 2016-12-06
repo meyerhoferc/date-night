@@ -7,14 +7,16 @@ require 'pry'
 class TreeTest < Minitest::Test
 
   def test_tree_has_head
-    tree = Tree.new(55, "Sharknado")
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
 
     assert tree.head
 
   end
 
   def test_tree_can_access_node_data
-    tree = Tree.new(55, "Sharknado")
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
 
     assert_equal 55, tree.head.score
     assert_equal "Sharknado", tree.head.title
@@ -22,7 +24,8 @@ class TreeTest < Minitest::Test
   end
 
   def test_tree_knows_if_node_has_no_children
-    tree = Tree.new(55, "Sharknado")
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
 
     assert_equal nil, tree.head.right_link
     assert_equal nil, tree.head.left_link
@@ -31,7 +34,8 @@ class TreeTest < Minitest::Test
 
 
   def test_tree_inserts_left_node_with_title_and_score
-    tree = Tree.new(55, "Sharknado")
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
 
     # node_2 = Node.new(51, "Jaws")
     tree.insert(51, "Jaws")
@@ -41,15 +45,27 @@ class TreeTest < Minitest::Test
 
 
   def test_tree_inserts_right_node_with_title_and_score
-    tree = Tree.new(55, "Sharknado")
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
     # node_2 = Node.new(51, "Jaws")
     tree.insert(99, "Harry Potter and the Sorcerer's Stone")
     assert_equal "Harry Potter and the Sorcerer's Stone", tree.head.right_link.title
     assert_equal 99, tree.head.right_link.score
   end
 
+  def test_tree_knows_if_node_has_children
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(40, "American Pie")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+
+    assert tree.head.right_link
+    assert tree.head.left_link
+  end
+
   def test_head_can_have_left_grandchild
-    tree = Tree.new(55, "Sharknado")
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
     tree.insert(51, "Jaws")
     tree.insert(42, "Weekend at Bernie's")
 
@@ -58,7 +74,8 @@ class TreeTest < Minitest::Test
   end
 
   def test_head_can_have_left_right_grandchild
-    tree = Tree.new(55, "Sharknado")
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
     tree.insert(51, "Jaws")
     tree.insert(42, "Weekend at Bernie's")
     tree.insert(52, "Princess Bride")
@@ -69,7 +86,8 @@ class TreeTest < Minitest::Test
   end
 
   def test_head_can_have_great_grandchildren
-  tree = Tree.new(55, "Sharknado")
+  tree = Tree.new
+  tree.insert(55, "Sharknado")
   tree.insert(51, "Jaws")
   tree.insert(42, "Weekend at Bernie's")
   tree.insert(52, "Princess Bride")
@@ -81,35 +99,23 @@ class TreeTest < Minitest::Test
   end
 
   def test_init_returns_zero_depth_for_head
-    tree = Tree.new(55, "Sharknado")
+    skip
+    #not a current method
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
 
     assert_equal 0, tree.depth_tracker
 
   end
 
   def test_insert_returns_one_depth_for_child
-    tree = Tree.new(55, "Sharknado")
+    skip
+    #not a current method
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
     tree.insert(40, "American Pie")
 
     assert_equal 1, tree.depth_tracker
-
-  end
-
-
-
-  def test_tree_knows_if_node_has_children
-    skip
-    tree = Tree.new
-
-    assert tree.head.right_link
-    assert tree.head.left_link
-
-  end
-
-
-  def test_tree_can_access_other_node_data
-    skip
-    tree = Tree.new
 
   end
 
