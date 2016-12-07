@@ -1,17 +1,17 @@
 require './lib/node'
 require './lib/insertion_sort.rb'
-# require './lib/test.txt'
 require 'pry'
 
 class Tree
 
   attr_reader :head
-  attr_accessor :unsorted_movie_info, :sorted_movie_info
+  attr_accessor :unsorted_movie_info, :sorted_movie_info, :movie_info_separated
 
   def initialize
     @head = head
     @unsorted_movie_info = []
     @sorted_movie_info = []
+    @movie_info_separated = []
   end
 
   def insert(current_node = @head, score, title)
@@ -94,17 +94,20 @@ class Tree
       line_count += 1
       raw_movie_info << line
     end
-    return line_count
 
-    movie_info_separated = []
     raw_movie_info.each do |movie|
       split_info = movie.split(", ")
       score = split_info[0].to_i
       title = split_info[1].chomp
-      movie_info_separated << [score, title]
+      @movie_info_separated << [score, title]
+      # @unsorted_movie_info << { title => score}
     end
-    movie_info_separated
+    @movie_info_separated
+    line_count
   end
 
-
 end
+
+# tree = Tree.new
+# tree.load
+# puts tree.movie_info_separated.count

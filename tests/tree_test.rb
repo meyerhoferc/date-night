@@ -240,18 +240,33 @@ class TreeTest < Minitest::Test
     assert_equal 99, tree.load
   end
 
-  def test_load_can_access_first_movie_score
-    skip 
+  def test_tree_returns_formatted_movie_info
     tree = Tree.new
 
-    assert_equal 71, movie_info_separated[0][0]
+    assert_equal Array, tree.movie_info_separated.class
   end
 
-  def test_load_can_access_first_movie_title
-    skip
+  def test_tree_counts_correct_number_elements_from_loading_file
     tree = Tree.new
+    tree.load
 
-    assert_equal "Hannibal Buress: Animal Furnace", movie_info_separated[0][1]
+    assert_equal 99, tree.movie_info_separated.count
+  end
+
+  def test_tree_knows_first_movie_data_from_loading_file
+    tree = Tree.new
+    tree.load
+
+    assert_equal 71, tree.movie_info_separated[0][0]
+    assert_equal "Hannibal Buress: Animal Furnace", tree.movie_info_separated[0][1]
+  end
+
+  def test_tree_creates_head_with_first_movie_from_loaded_file
+    tree = Tree.new
+    tree.load
+
+    assert_equal 71, tree.head.score
+    assert_equal "Hannibal Buress: Animal Furnace", tree.head.title
   end
 
   def test_tree_knows_health_at_varying_depths
