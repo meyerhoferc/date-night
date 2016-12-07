@@ -219,29 +219,39 @@ class TreeTest < Minitest::Test
     assert_equal sorted_movies, tree.sorted_movie_info
   end
 
-  def test_tree_returns_sorted_hash_of_data
+  def test_tree_can_print_all_file_info
     skip
     tree = Tree.new
-    tree.insert(55, "Sharknado")
-    tree.insert(51, "Jaws")
-    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
-    tree.insert(40, "American Pie")
-    tree.insert(100, "Wall E")
+    data = "This is the data in the file."
 
-    sorted_movies = []
-    sorted_movies << { "American Pie" => 40 }
-    sorted_movies << { "Jaws" => 51 }
-    sorted_movies << { "Sharknado" => 55 }
-    sorted_movies << { "Harry Potter and the Sorcerer's Stone" => 99 }
-    sorted_movies << { "Wall E" => 100 }
+    assert_equal data, tree.print_all
 
-    assert tree.sort
-    assert_equal sorted_movies, tree.sort_movies
   end
 
-  def test_tree_can_load_info_from_file
-    skip
+  def test_load_returns_true_from_loading_file
+    tree = Tree.new
 
+    assert tree.load
+  end
+
+  def test_tree_load_returns_correct_number_of_lines
+    tree = Tree.new
+
+    assert_equal 99, tree.load
+  end
+
+  def test_load_can_access_first_movie_score
+    skip 
+    tree = Tree.new
+
+    assert_equal 71, movie_info_separated[0][0]
+  end
+
+  def test_load_can_access_first_movie_title
+    skip
+    tree = Tree.new
+
+    assert_equal "Hannibal Buress: Animal Furnace", movie_info_separated[0][1]
   end
 
   def test_tree_knows_health_at_varying_depths

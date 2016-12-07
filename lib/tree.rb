@@ -1,5 +1,6 @@
 require './lib/node'
 require './lib/insertion_sort.rb'
+# require './lib/test.txt'
 require 'pry'
 
 class Tree
@@ -84,5 +85,26 @@ class Tree
     sorter = InsertionSort.new
     @sorted_movie_info = sorter.sort(@unsorted_movie_info)
   end
+
+  def load(file = ARGV.first)
+    line_count = 0
+    opened_file = open(file, 'r')
+    raw_movie_info = []
+    while line = opened_file.gets
+      line_count += 1
+      raw_movie_info << line
+    end
+    return line_count
+
+    movie_info_separated = []
+    raw_movie_info.each do |movie|
+      split_info = movie.split(", ")
+      score = split_info[0].to_i
+      title = split_info[1].chomp
+      movie_info_separated << [score, title]
+    end
+    movie_info_separated
+  end
+
 
 end
