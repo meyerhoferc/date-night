@@ -160,19 +160,32 @@ class TreeTest < Minitest::Test
   end
 
 
-  def test_tree_knows_depth_of_score_from_head
-    skip
-
-  end
-
   def test_tree_knows_highest_rated_movie_in_tree
-    skip
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+    tree.insert(40, "American Pie")
+    tree.insert(100, "Wall E")
 
+    max = {"Wall E" => 100}
+
+    assert tree.max
+    assert_equal max, tree.max
   end
 
   def test_tree_knows_lowest_rated_movie_in_tree
-    skip
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+    tree.insert(40, "American Pie")
+    tree.insert(100, "Wall E")
 
+    min = {"American Pie" => 40}
+
+    assert tree.min
+    assert_equal min, tree.min
   end
 
   def test_tree_returns_sorted_hash_of_data

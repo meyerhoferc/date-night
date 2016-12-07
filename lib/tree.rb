@@ -4,11 +4,9 @@ require 'pry'
 class Tree
 
   attr_reader :head
-  # attr_accessor :depth_tracker
 
   def initialize
     @head = head
-    # @depth_tracker = 0
   end
 
   def insert(current_node = @head, score, title)
@@ -62,8 +60,36 @@ class Tree
       include?(score, current_node)
     else
       false
-    end 
+    end
+  end
 
+  def max(current_node = @head)
+    max_movie = {}
+    if current_node.right_link != nil
+      current_node = current_node.right_link
+
+      max(current_node)
+    else
+      max_score = current_node.score
+      max_title = current_node.title
+
+      max_movie = { max_title => max_score}
+    end
+  end
+
+
+  def min(current_node = @head)
+    min_movie = {}
+    if current_node.left_link != nil
+      current_node = current_node.left_link
+
+      min(current_node)
+    else
+      min_score = current_node.score
+      min_title = current_node.title
+
+      min_movie = { min_title => min_score}
+    end
   end
 
   #
