@@ -7,7 +7,7 @@ class Tree
   # attr_accessor :depth_tracker
 
   def initialize
-    @head = nil
+    @head = head
     # @depth_tracker = 0
   end
 
@@ -35,6 +35,35 @@ class Tree
       end
     end
     depth_tracker
+  end
+
+  def depth_of(score, distance_from_head = 0, current_node = @head)
+    if score == current_node.score
+      distance_from_head
+    elsif score < current_node.score
+      current_node = current_node.left_link
+      distance_from_head += 1
+      depth_of(score, distance_from_head, current_node)
+    else
+      current_node = current_node.right_link
+      distance_from_head += 1
+      depth_of(score, distance_from_head, current_node)
+    end
+  end
+
+  def include?(score, current_node = @head)
+    if score == current_node.score
+      true
+    elsif score < current_node.score && current_node.left_link != nil
+      current_node = current_node.left_link
+      include?(score, current_node)
+    elsif score > current_node.score && current_node.right_link != nil
+      current_node = current_node.right_link
+      include?(score, current_node)
+    else
+      false
+    end 
+
   end
 
   #

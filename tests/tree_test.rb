@@ -98,31 +98,67 @@ class TreeTest < Minitest::Test
 
   end
 
-  def test_init_returns_zero_depth_for_head
-    skip
-    #not a current method
+  def test_head_has_depth_of_zero
     tree = Tree.new
     tree.insert(55, "Sharknado")
 
-    assert_equal 0, tree.depth_tracker
+    assert_equal 0, tree.depth_of(55)
 
   end
 
-  def test_insert_returns_one_depth_for_child
-    skip
-    #not a current method
+  def test_head_children_have_depth_of_one
     tree = Tree.new
     tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+
+    assert_equal 1, tree.depth_of(51)
+    assert_equal 1, tree.depth_of(99)
+
+  end
+
+  def test_head_grandchildren_have_depth_of_two
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
     tree.insert(40, "American Pie")
+    tree.insert(100, "Wall E")
 
-    assert_equal 1, tree.depth_tracker
-
+    assert_equal 2, tree.depth_of(40)
+    assert_equal 2, tree.depth_of(100)
   end
 
-  def test_tree_knows_if_it_has_a_score_already
-    skip
+  def test_tree_knows_if_it_has_a_score
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+    tree.insert(40, "American Pie")
+    tree.insert(100, "Wall E")
 
+    assert tree.include?(55)
+    assert tree.include?(51)
+    assert tree.include?(99)
+    assert tree.include?(40)
+    assert tree.include?(100)
   end
+
+  def test_tree_knows_it_does_not_have_a_score
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+    tree.insert(40, "American Pie")
+    tree.insert(100, "Wall E")
+
+    refute tree.include?(50)
+    refute tree.include?(1)
+    refute tree.include?(567)
+    refute tree.include?(22)
+    refute tree.include?(88)
+  end
+
 
   def test_tree_knows_depth_of_score_from_head
     skip
