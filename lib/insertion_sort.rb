@@ -22,17 +22,4 @@ class InsertionSort
     end
     sorted
   end
-  # sorted
 end
-
-# test_unsorted = (0..100).to_a.shuffle
-# sorter = InsertionSort.new
-# puts sorter.sort(test_unsorted)
-# puts sorter.sort(["d", "c", "a", "b"])
-# movie_info = []
-# movie_info << { "Sharknado" => 55 }
-# movie_info << { "Jaws" => 51 }
-# movie_info << { "Harry Potter and the Sorcerer's Stone" => 99 }
-# movie_info << { "American Pie" => 40 }
-# movie_info << { "Wall E" => 100 }
-# puts sorter.sort(movie_info)

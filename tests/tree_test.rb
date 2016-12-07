@@ -12,7 +12,6 @@ class TreeTest < Minitest::Test
     tree.insert(55, "Sharknado")
 
     assert tree.head
-
   end
 
   def test_tree_can_access_node_data
@@ -21,7 +20,6 @@ class TreeTest < Minitest::Test
 
     assert_equal 55, tree.head.score
     assert_equal "Sharknado", tree.head.title
-
   end
 
   def test_tree_knows_if_node_has_no_children
@@ -30,16 +28,14 @@ class TreeTest < Minitest::Test
 
     assert_equal nil, tree.head.right_link
     assert_equal nil, tree.head.left_link
-
   end
 
 
   def test_tree_inserts_left_node_with_title_and_score
     tree = Tree.new
     tree.insert(55, "Sharknado")
-
-    # node_2 = Node.new(51, "Jaws")
     tree.insert(51, "Jaws")
+
     assert_equal "Jaws", tree.head.left_link.title
     assert_equal 51, tree.head.left_link.score
   end
@@ -48,8 +44,8 @@ class TreeTest < Minitest::Test
   def test_tree_inserts_right_node_with_title_and_score
     tree = Tree.new
     tree.insert(55, "Sharknado")
-    # node_2 = Node.new(51, "Jaws")
     tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+
     assert_equal "Harry Potter and the Sorcerer's Stone", tree.head.right_link.title
     assert_equal 99, tree.head.right_link.score
   end
@@ -83,7 +79,6 @@ class TreeTest < Minitest::Test
 
     assert_equal 52, tree.head.left_link.right_link.score
     assert_equal "Princess Bride", tree.head.left_link.right_link.title
-
   end
 
   def test_head_can_have_great_grandchildren
@@ -96,7 +91,6 @@ class TreeTest < Minitest::Test
 
   assert_equal 40, tree.head.left_link.left_link.left_link.score
   assert_equal "American Pie", tree.head.left_link.left_link.left_link.title
-
   end
 
   def test_head_has_depth_of_zero
@@ -104,7 +98,6 @@ class TreeTest < Minitest::Test
     tree.insert(55, "Sharknado")
 
     assert_equal 0, tree.depth_of(55)
-
   end
 
   def test_head_children_have_depth_of_one
@@ -115,7 +108,6 @@ class TreeTest < Minitest::Test
 
     assert_equal 1, tree.depth_of(51)
     assert_equal 1, tree.depth_of(99)
-
   end
 
   def test_head_grandchildren_have_depth_of_two
@@ -225,46 +217,6 @@ class TreeTest < Minitest::Test
 
     assert tree.sort_movies
     assert_equal sorted_movies, tree.sorted_movie_info
-  end
-
-  def test_tree_sort_can_find_and_hash_lowest_node_data
-    skip
-    tree = Tree.new
-    tree.insert(55, "Sharknado")
-    tree.insert(51, "Jaws")
-    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
-    tree.insert(40, "American Pie")
-    tree.insert(100, "Wall E")
-
-    lowest_hash = {"American Pie" => 40}
-
-    sorted_movies = []
-    sorted_movies << lowest_hash
-
-    assert tree.sort
-    assert_equal sorted_movies, tree.sorted_movie_info
-
-  end
-
-  def test_tree_sort_returns_lowest_2_node_data
-    skip
-    tree = Tree.new
-    tree.insert(55, "Sharknado")
-    tree.insert(51, "Jaws")
-    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
-    tree.insert(40, "American Pie")
-    tree.insert(100, "Wall E")
-
-    lowest_hash = {"American Pie" => 40}
-    second_lowest_hash = {"Jaws" => 51}
-
-    sorted_movies = []
-    sorted_movies << lowest_hash
-    sorted_movies << second_lowest_hash
-
-    assert_equal sorted_movies, tree.sort_movies
-
-
   end
 
   def test_tree_returns_sorted_hash_of_data
