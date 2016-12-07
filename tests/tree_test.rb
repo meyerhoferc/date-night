@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/node'
 require './lib/tree'
+require './lib/insertion_sort.rb'
 require 'pry'
 
 class TreeTest < Minitest::Test
@@ -188,9 +189,102 @@ class TreeTest < Minitest::Test
     assert_equal min, tree.min
   end
 
+  def test_tree_returns_unsorted_array_of_movie_info
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+    tree.insert(40, "American Pie")
+    tree.insert(100, "Wall E")
+
+    unsorted_movies = []
+    unsorted_movies << { "Sharknado" => 55 }
+    unsorted_movies << { "Jaws" => 51 }
+    unsorted_movies << { "Harry Potter and the Sorcerer's Stone" => 99 }
+    unsorted_movies << { "American Pie" => 40 }
+    unsorted_movies << { "Wall E" => 100 }
+
+    assert tree.unsorted_movie_info
+    assert_equal unsorted_movies, tree.unsorted_movie_info
+  end
+
+  def test_tree_returns_sorted_array_of_movie_info
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+    tree.insert(40, "American Pie")
+    tree.insert(100, "Wall E")
+
+    sorted_movies = []
+    sorted_movies << { "American Pie" => 40 }
+    sorted_movies << { "Jaws" => 51 }
+    sorted_movies << { "Sharknado" => 55 }
+    sorted_movies << { "Harry Potter and the Sorcerer's Stone" => 99 }
+    sorted_movies << { "Wall E" => 100 }
+
+    assert tree.sort_movies
+    assert_equal sorted_movies, tree.sorted_movie_info
+  end
+
+  def test_tree_sort_can_find_and_hash_lowest_node_data
+    skip
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+    tree.insert(40, "American Pie")
+    tree.insert(100, "Wall E")
+
+    lowest_hash = {"American Pie" => 40}
+
+    sorted_movies = []
+    sorted_movies << lowest_hash
+
+    assert tree.sort
+    assert_equal sorted_movies, tree.sorted_movie_info
+
+  end
+
+  def test_tree_sort_returns_lowest_2_node_data
+    skip
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+    tree.insert(40, "American Pie")
+    tree.insert(100, "Wall E")
+
+    lowest_hash = {"American Pie" => 40}
+    second_lowest_hash = {"Jaws" => 51}
+
+    sorted_movies = []
+    sorted_movies << lowest_hash
+    sorted_movies << second_lowest_hash
+
+    assert_equal sorted_movies, tree.sort_movies
+
+
+  end
+
   def test_tree_returns_sorted_hash_of_data
     skip
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(99, "Harry Potter and the Sorcerer's Stone")
+    tree.insert(40, "American Pie")
+    tree.insert(100, "Wall E")
 
+    sorted_movies = []
+    sorted_movies << { "American Pie" => 40 }
+    sorted_movies << { "Jaws" => 51 }
+    sorted_movies << { "Sharknado" => 55 }
+    sorted_movies << { "Harry Potter and the Sorcerer's Stone" => 99 }
+    sorted_movies << { "Wall E" => 100 }
+
+    assert tree.sort
+    assert_equal sorted_movies, tree.sort_movies
   end
 
   def test_tree_can_load_info_from_file
