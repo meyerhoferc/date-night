@@ -65,17 +65,6 @@ class NodeTest < Minitest::Test
     assert_equal 35, node_1.left_link.score
   end
 
-  def test_node_knows_if_it_has_right_children
-    skip
-
-  end
-
-  def test_node_knows_if_it_has_left_children
-    skip
-
-  end
-
-
   # def test_node_can_add_link_to_link
   #   data_1 = "ham shanks"
   #   data_2 = "ice cream"
