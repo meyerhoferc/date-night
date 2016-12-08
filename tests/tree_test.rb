@@ -219,15 +219,6 @@ class TreeTest < Minitest::Test
     assert_equal sorted_movies, tree.sorted_movie_info
   end
 
-  def test_tree_can_print_all_file_info
-    skip
-    tree = Tree.new
-    data = "This is the data in the file."
-
-    assert_equal data, tree.print_all
-
-  end
-
   def test_load_returns_true_from_loading_file
     tree = Tree.new
 
@@ -269,7 +260,46 @@ class TreeTest < Minitest::Test
     assert_equal "Hannibal Buress: Animal Furnace", tree.head.title
   end
 
-  def test_tree_knows_health_at_varying_depths
+  def test_load_inserts_nodes_into_tree
+    tree = Tree.new
+    tree.load
+
+    assert_equal 71, tree.head.score
+    assert_equal 80, tree.head.right_link.score
+    assert_equal 17, tree.head.left_link.score
+    assert_equal "Hannibal Buress: Animal Furnace", tree.head.title
+    assert_equal "Hannibal Buress: Comedy Camisado", tree.head.right_link.title
+    assert_equal "Meet My Valentine", tree.head.left_link.title
+  end
+
+  def test_tree_returns_hash_of_depth_and_score
+    tree = Tree.new
+    tree.load
+    tree.scores_at_a_depth
+
+    assert_equal Hash, tree.scores_at_a_depth.class
+  end
+
+
+  def test_tree_finds_nodes_at_a_given_depth
+    tree = Tree.new
+    tree.load
+    tree.scores_at_a_depth
+
+    assert_equal [71], tree.score_finder(0)
+    assert tree.score_finder(1)
+    assert tree.score_finder(2)
+  end
+
+  def test_tree_knows_health_at_head
+    tree = Tree.new
+    tree.load
+
+    assert_equal [[71, 99, 100]], tree.health(0)
+  end
+
+
+  def test_tree_knows_health_at_depth_of_one
     skip
 
   end

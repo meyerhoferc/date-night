@@ -12,6 +12,7 @@ class Tree
     @unsorted_movie_info = []
     @sorted_movie_info = []
     @movie_info_separated = []
+    @scores_at_a_depth = {}
   end
 
   def insert(current_node = @head, score, title)
@@ -21,6 +22,7 @@ class Tree
     if @head.nil?
       @head = node
       @unsorted_movie_info << { node.title => node.score }
+      depth_tracker
     else
       if node.score < current_node.score && current_node.left_link == nil
         current_node.left_link = node
@@ -100,14 +102,72 @@ class Tree
       score = split_info[0].to_i
       title = split_info[1].chomp
       @movie_info_separated << [score, title]
-      # @unsorted_movie_info << { title => score}
     end
-    @movie_info_separated
+
+    @movie_info_separated.each do |pair|
+      score = pair[0]
+      title = pair[1]
+      insert(score, title)
+    end
     line_count
   end
+
+  # def health(depth, current_node = @head)
+  #   health_stats = []
+  #   if depth == 0
+  #     health_stats << [@head.score, @unsorted_movie_info.count, 100]
+  #   end
+  # end
+
+  def health(depth)
+    health_stats = []
+    scores = []
+    scores << score_finder(depth)
+    scores = scores.flatten!
+    scores.each do |score|
+      right_children = find_right_children(score)
+      left_children = find_left_children(score)
+      children = right_children + left_children
+      total = @sorted_movie_info.count
+
+      health_stats << [score, 1 + children, ((1+children)/total).to_i]
+    end
+  end
+
+  def scores_at_a_depth
+    all_scores = @movie_info_separated.map { |element| element[0] }
+    all_scores.each do |score|
+      depth = depth_of(score)
+      if @scores_at_a_depth.include?(depth)
+        @scores_at_a_depth[depth] << score
+      else
+        @scores_at_a_depth[depth] = [score]
+      end
+    end
+    @scores_at_a_depth
+  end
+
+  def score_finder(depth)
+    @scores_at_a_depth[depth]
+  end
+
+
+  # def score_finder(depth, distance_from_head = 0, current_node = @head)
+  #   scores_at_a_depth = []
+  #   if depth == distance_from_head
+  #     scores_at_a_depth << current_node.score
+  #   else
+  #     distance_from_head += 1
+  #     score_finder(depth, distance_from_head, current_node.right_link)
+  #     score_finder(depth, distance_from_head, current_node.left_link)
+  #   end
+  # end
 
 end
 
 # tree = Tree.new
 # tree.load
-# puts tree.movie_info_separated.count
+# tree.sort_movies
+# puts tree.sorted_movie_info.count
+# puts tree.scores_at_a_depth
+# puts tree.sorted_movie_info
