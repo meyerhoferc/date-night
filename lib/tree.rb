@@ -112,27 +112,18 @@ class Tree
     line_count
   end
 
-  # def health(depth, current_node = @head)
+  # def health(depth)
   #   health_stats = []
-  #   if depth == 0
-  #     health_stats << [@head.score, @unsorted_movie_info.count, 100]
+  #   scores = score_finder(depth)
+  #   scores.each do |score|
+  #     right_children = find_right_children(score)
+  #     left_children = find_left_children(score)
+  #     children = right_children + left_children
+  #     total = @sorted_movie_info.count
+  #
+  #     health_stats << [score, 1 + children, ((1+children)/total).to_i]
   #   end
   # end
-
-  def health(depth)
-    health_stats = []
-    scores = []
-    scores << score_finder(depth)
-    scores = scores.flatten!
-    scores.each do |score|
-      right_children = find_right_children(score)
-      left_children = find_left_children(score)
-      children = right_children + left_children
-      total = @sorted_movie_info.count
-
-      health_stats << [score, 1 + children, ((1+children)/total).to_i]
-    end
-  end
 
   def scores_at_a_depth
     all_scores = @movie_info_separated.map { |element| element[0] }
@@ -151,20 +142,8 @@ class Tree
     @scores_at_a_depth[depth]
   end
 
-
-  # def score_finder(depth, distance_from_head = 0, current_node = @head)
-  #   scores_at_a_depth = []
-  #   if depth == distance_from_head
-  #     scores_at_a_depth << current_node.score
-  #   else
-  #     distance_from_head += 1
-  #     score_finder(depth, distance_from_head, current_node.right_link)
-  #     score_finder(depth, distance_from_head, current_node.left_link)
-  #   end
-  # end
-
 end
-
+#
 # tree = Tree.new
 # tree.load
 # tree.sort_movies

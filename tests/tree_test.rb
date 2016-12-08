@@ -82,15 +82,15 @@ class TreeTest < Minitest::Test
   end
 
   def test_head_can_have_great_grandchildren
-  tree = Tree.new
-  tree.insert(55, "Sharknado")
-  tree.insert(51, "Jaws")
-  tree.insert(42, "Weekend at Bernie's")
-  tree.insert(52, "Princess Bride")
-  tree.insert(40, "American Pie")
+    tree = Tree.new
+    tree.insert(55, "Sharknado")
+    tree.insert(51, "Jaws")
+    tree.insert(42, "Weekend at Bernie's")
+    tree.insert(52, "Princess Bride")
+    tree.insert(40, "American Pie")
 
-  assert_equal 40, tree.head.left_link.left_link.left_link.score
-  assert_equal "American Pie", tree.head.left_link.left_link.left_link.title
+    assert_equal 40, tree.head.left_link.left_link.left_link.score
+    assert_equal "American Pie", tree.head.left_link.left_link.left_link.title
   end
 
   def test_head_has_depth_of_zero
@@ -280,7 +280,6 @@ class TreeTest < Minitest::Test
     assert_equal Hash, tree.scores_at_a_depth.class
   end
 
-
   def test_tree_finds_nodes_at_a_given_depth
     tree = Tree.new
     tree.load
@@ -292,16 +291,12 @@ class TreeTest < Minitest::Test
   end
 
   def test_tree_knows_health_at_head
+    skip
     tree = Tree.new
     tree.load
+    tree.scores_at_a_depth
 
     assert_equal [[71, 99, 100]], tree.health(0)
-  end
-
-
-  def test_tree_knows_health_at_depth_of_one
-    skip
-
   end
 
 end
